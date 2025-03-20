@@ -17,9 +17,18 @@ document.getElementById('addForm').addEventListener('submit', function(event) {
         });
 });
 
+const addThose = () => {
+    var sum = num1 + num2;
+
+    alert(`The sum of ${num1} and ${num2} is ${sum}`);
+}
+
 $(document).ready(function() {
     $('.materialboxed').materialbox();
     $('#clickMeButton').click(() => {
         clickMe();
+    })
+    $('#addButton').click(() => {
+        addThose();
     })
 });
