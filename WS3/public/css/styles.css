@@ -8,9 +8,13 @@
 }
 
 .main-body {
-    background-color: #F28487;
+    background: #F28487;
     color: white;
     height: calc(100vh - 64px);
+}
+
+h2 {
+    color: #EE6E73;
 }
 
 .materialboxed-image {
