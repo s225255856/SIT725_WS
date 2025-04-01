@@ -1,7 +1,7 @@
 {
-  "name": "ws3",
+  "name": "ws4",
   "version": "1.0.0",
-  "description": "sit725 week 3 prac",
+  "description": "sit725 week 4 prac",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
