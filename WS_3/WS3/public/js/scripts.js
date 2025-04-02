@@ -1,10 +1,17 @@
-const getProjects = () => {
-    $.get('/api/projects', (response) => {
-        if(response.statusCode==200) {
-            addCards(response.data);
-        }
-    })
-}
+const cardList = [
+    {
+        title: "That barrack",
+        image: "images/250.png",
+        link: "About this town hall",
+        description: "give me your trophy"
+    },
+    {
+        title: "Another barrack",
+        image: "images/250.png",
+        link: "About archer queen",
+        description: "give me your trophy"
+    }
+]
 
 const clickMe = () => {
     alert("Thanks for clicking me. Hope you have a great dinner!")
@@ -41,6 +48,27 @@ const addCards = (items) => {
     });
 }
 
+// document.getElementById('addForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+//     const num1 = document.getElementById('num1').value;
+//     const num2 = document.getElementById('num2').value;
+
+//     fetch(`/add?num1=${num1}&num2=${num2}`)
+//         .then(response => response.text())
+//         .then(data => {
+//             document.getElementById('result').innerText = data;
+//         })
+//         .catch(error => {
+//             document.getElementById('result').innerText = 'Error: ' + error;
+//         });
+// });
+
+// const addThose = () => {
+//     var sum = num1 + num2;
+
+//     alert(`The sum of ${num1} and ${num2} is ${sum}`);
+// }
+
 $(document).ready(function() {
     $('.materialboxed').materialbox();
     $('#formSubmit').click(() => {
@@ -49,7 +77,7 @@ $(document).ready(function() {
     // $('#addButton').click(() => {
     //     addThose();
     // })
-    getProjects();
+    addCards(cardList);
     $('.modal').modal();
     $('#clickMeButton').click(() => {
         $('#modal1').modal('open');
