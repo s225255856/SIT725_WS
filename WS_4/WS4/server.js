@@ -3,6 +3,26 @@ var app = express();
 
 const mongoose = require('mongoose');
 
+//Connecting to MongoDB
+mongoose.connect('mongodb://localhost:27017/myprojectDB', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB!');
+});
+
+//Creating Mongoose Schema
+const ProjectSchema = new mongoose.Schema ({
+    title: String,
+    image: String,
+    link: String,
+    description: String,
+});
+
+const Project = mongoose.model('Project', ProjectSchema);
+
 app.use(express.static(__dirname+'/public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -22,9 +42,12 @@ const cardList = [
     }
 ]
 
-app.get('/api/projects', (req,res) => {
-    res.json({statusCode: 200, data: cardList, message:"Success"})
-})
+//rest api route
+//Replacing static data with MongoDB query
+app.get('/api/projects', async (req,res) => {
+    const projects = await Project.find({});
+    res.json({statusCode: 200, data: projects, message:"Success"})
+});
 
 var port = process.env.port || 3000;
 
@@ -45,6 +68,7 @@ var port = process.env.port || 3000;
 //     res.send(`The sum of ${num1} and ${num2} is ${sum}`);
 // });
 
+//stating the server
 app.listen(port, () => {
     console.log("App listening to: "+port);
 });
