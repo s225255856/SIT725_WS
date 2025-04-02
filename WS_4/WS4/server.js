@@ -1,6 +1,8 @@
 var express = require("express");
 var app = express();
 
+const mongoose = require('mongoose');
+
 app.use(express.static(__dirname+'/public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
