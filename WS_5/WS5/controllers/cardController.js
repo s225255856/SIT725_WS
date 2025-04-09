@@ -3,10 +3,10 @@ const cardService = require('../services/cardService');
 
 //Controller users the service to get data
 exports.getAllCard = (req, res) => {
-    const items = cardService.getAllCard();
+    const projects = cardService.getAllCard();
     res.json({
         status: 200,
-        data: items,
+        data: projects,
         message: 'jjj'
     })
 };

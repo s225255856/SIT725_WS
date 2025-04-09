@@ -14,7 +14,7 @@ const cardItems = [
     }
   ];
   
-  // Service function to get all food items
+  // Service function to get all card items
   const getAllCard = () => {
     return cardItems;
   };
