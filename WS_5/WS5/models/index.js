@@ -1,3 +1,5 @@
+const Project = require('./cardModel');
+
 module.exports = {
-    cardTemplate: require('./cardModel')
+    Project: require('./cardModel')
   };

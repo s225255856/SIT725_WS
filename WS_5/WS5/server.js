@@ -6,7 +6,7 @@ var port = process.env.port || 3000
 
 //Import route file 
 const cardRoute = require('./routes');
-//const Project = require('./models');
+const Project = require('./models');
 app.use("/", cardRoute);
 
 //mount the route at /api/hello
@@ -32,15 +32,6 @@ mongoose.connect('mongodb://localhost:27017/myprojectDB', {
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB!');
 });
-
-const ProjectSchema = new mongoose.Schema ({
-    title: String,
-    image: String,
-    link: String,
-    description: String,
-});
-
-const Project = mongoose.model('Project', ProjectSchema);
 
 app.use(express.static(path.join(__dirname+'/public')));
 app.use(express.json());
