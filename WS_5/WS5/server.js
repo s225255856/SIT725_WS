@@ -1,7 +1,8 @@
 const express = require("express");
+const path = require('path');
 const app = express();
-//const PORT = 3000;
-var port = process.env.port || 3004
+//const port = 3000;
+var port = process.env.port || 3000
 
 //Import route file 
 const cardRoute = require('./routes');
@@ -33,18 +34,16 @@ mongoose.connection.on('connected', () => {
 
 //const Project = mongoose.model('Project', ProjectSchema);
 
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(path.join(__dirname+'/public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //rest api route
 //Replacing static data with MongoDB query
-// app.get('/api/projects', async (req,res) => {
-//     const projects = await Project.find({});
-//     res.json({statusCode: 200, data: projects, message:"Success"})
-// });
-
-//var port = process.env.port || 3000;
+app.get('/api/projects', async (req,res) => {
+    const projects = await Project.find({});
+    res.json({statusCode: 200, data: projects, message:"Success"})
+});
 
 //stating the server
 app.listen(port, () => {
