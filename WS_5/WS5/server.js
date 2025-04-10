@@ -1,21 +1,23 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+//const PORT = 3000;
+var port = process.env.port || 3004
 
 //Import route file 
 const cardRoute = require('./routes');
+app.use("/", cardRoute);
 
 //mount the route at /api/hello
 app.use('/api/card', cardRoute);
 
 //root route
-app.get('/', (req, res) => {
-    res.send('Welcome to dinner!');
-});
+// app.get('/', (req, res) => {
+//     res.send('Welcome to dinner!');
+// });
 
-app.listen(PORT, () => {
-    console.log(`Server is running at https://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server is running at https://localhost:${PORT}`);
+// });
 
 const mongoose = require('mongoose');
 
@@ -29,7 +31,7 @@ mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB!');
 });
 
-const Project = mongoose.model('Project', ProjectSchema);
+//const Project = mongoose.model('Project', ProjectSchema);
 
 app.use(express.static(__dirname+'/public'));
 app.use(express.json());
@@ -42,7 +44,7 @@ app.use(express.urlencoded({extended: false}));
 //     res.json({statusCode: 200, data: projects, message:"Success"})
 // });
 
-var port = process.env.port || 3000;
+//var port = process.env.port || 3000;
 
 //stating the server
 app.listen(port, () => {

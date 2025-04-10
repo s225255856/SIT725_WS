@@ -1,3 +1,5 @@
+const { getAllCard } = require('./cardService');
+
 module.exports = {
-    cardService: require('./cardService')
+    getAllCard: require('./cardService')
   };

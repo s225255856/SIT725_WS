@@ -29,10 +29,11 @@ const sampleData = [
     }
 ];
 
-// Project.insertMany(sampleData)
-//   .then(() => {
-//     console.log("Sample data inserted");
-//     mongoose.connection.close();
-//   })
-//   .catch(err => console.error(err));
+Project.insertMany(sampleData)
+  .then(() => {
+    console.log("Sample data inserted");
+    mongoose.connection.close();
+  })
+  .catch(err => console.error(err));
 
+//sampleData.save().then(() => console.log("Sample data inserted"));
