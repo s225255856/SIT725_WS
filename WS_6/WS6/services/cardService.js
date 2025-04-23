@@ -1,4 +1,4 @@
-const {Project} = require('../models');
+const Project = require('../models');
 
 // This acts like a fake database for now
 // const cardItems = [

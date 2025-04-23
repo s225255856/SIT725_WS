@@ -8,5 +8,5 @@ const ProjectSchema = new mongoose.Schema ({
     description: String,
 });
 
-const Project = mongoose.model('Cards', ProjectSchema);
+const Project = mongoose.model('Project', ProjectSchema);
 module.exports = Project;
