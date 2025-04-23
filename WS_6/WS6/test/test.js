@@ -1,37 +1,74 @@
-const expect = require("chai").expect;
+const chai = require("chai");
 const request = require("request");
+const express = require('express');
+const Project = require("../models/cardModel");
+const cardService = require("../services/cardService");
 
-describe("Sum Calculator API", function () {
+const { expect } = chai;
+
+describe("Website API", function () {
   const baseUrl = "http://localhost:3000";
 
-
+    
     it("returns status 200 to check if api works", function(done) {
         request(baseUrl, function(error, response, body) {
             expect(response.statusCode).to.equal(200);
             done()
           });
     });
+});
 
-
-  it("should return correct sum for valid numbers", function (done) {
-    request.get(`${baseUrl}/add?a=10&b=5`, function (error, response, body) {
-      expect(response.statusCode).to.equal(200);
-      expect(body).to.include("15"); // Response contains the sum in plain text or HTML
-      done();
-    });
+describe("Card Service", () => {
+  before(async () => {
+      mongoose.connect('mongodb://localhost:27017/testDB', {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+      });
+      
+      await Project.deleteMany(); // Clear test data before starting
   });
 
-  it("should handle missing parameters", function (done) {
-    request.get(`${baseUrl}/add?a=10`, function (error, response, body) {
-      expect(response.statusCode).to.not.equal(200); // Expect error
-      done();
-    });
+  after(async () => {
+      await mongoose.connection.close();
   });
 
-  it("should return error for non-numeric input", function (done) {
-    request.get(`${baseUrl}/add?a=hello&b=world`, function (error, response, body) {
-      expect(response.statusCode).to.not.equal(200);
-      done();
-    });
+  // Test 1: Should return an empty array when no projects exist
+  it("should return an empty array when no projects are found", async () => {
+      const result = await cardService.getAllCard();
+      expect(result).to.be.an("array").that.is.empty;
+  });
+
+  // Test 2: Should return projects when they exist
+  it("should return an array of projects", async () => {
+      await Project.create({ title: "Test Card", description: "Example data" });
+
+      const result = await cardService.getAllCard();
+      expect(result).to.be.an("array");
+      expect(result).to.have.length(1);
+      expect(result[0]).to.have.property("title", "Test Card");
+  });
+
+  // Test 3: Should handle database errors gracefully
+  it("should throw an error if database connection is lost", async () => {
+      await mongoose.connection.close(); //simulate DB failure
+
+      try {
+          await cardService.getAllCard();
+          throw new Error("Expected function to throw an error");
+      } catch (error) {
+          expect(error).to.be.an("error");
+      } finally {
+          await mongoose.connect('mongodb://localhost:27017/testDB', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }); //reconnect
+      }
+  });
+
+  // Test 4: Should check returned data structure
+  it("should return objects with required properties", async () => {
+      const result = await cardService.getAllCard();
+      expect(result[0]).to.have.property("title");
+      expect(result[0]).to.have.property("description");
   });
 });
