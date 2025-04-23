@@ -1,10 +1,11 @@
-const chai = require("chai");
 const request = require("request");
-const express = require('express');
-const Project = require("../models/cardModel");
-const cardService = require("../services/cardService");
+const express = require("express");
+const expect = require("chai").expect;
+const mongoose = require('mongoose');
+const Project = require('../models');
+const cardService = require('../services/cardService');
 
-const { expect } = chai;
+//const { expect } = chai;
 
 describe("Website API", function () {
   const baseUrl = "http://localhost:3000";
