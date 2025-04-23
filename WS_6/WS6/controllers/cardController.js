@@ -1,7 +1,7 @@
 //Import the service
 const cardService = require('../services/cardService');
 
-//Controller users the service to get data
+//Controller uses the service to get data
 // exports.getAllCard = (req, res) => {
 //     const projects = cardService.getAllCard();
 //     res.json({
@@ -21,5 +21,6 @@ const cardController = {
       }
     }
   };
+
 
 module.exports = cardController;
