@@ -10,18 +10,10 @@ const routes = require('./routes');
 const Project = require('./models');
 app.use("/", routes);
 
-//mount the route at /api/hello
-//app.use('/api/projects', cardRoute);
-
-//root route
-// app.get('/', (req, res) => {
-//     res.send('Welcome to dinner!');
-// });
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running at https://localhost:${PORT}`);
-// });
-
+//Create HTTP server from app
+const http = require('http').createServer(app);
+//Pass http server to socket.io
+const io = require('socket.io') (http);
 
 //Connecting to MongoDB
 mongoose.connect('mongodb://localhost:27017/myprojectDB', {
@@ -42,6 +34,17 @@ app.use(express.urlencoded({extended: false}));
 app.get('/api/projects', async (req,res) => {
     const projects = await Project.find({});
     res.json({statusCode: 200, data: projects, message:"Success"})
+});
+
+//socket
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+    setInterval(() => {
+        socket.emit('number', parseInt(Math.random()*10));
+    }, 1000);
 });
 
 //stating the server

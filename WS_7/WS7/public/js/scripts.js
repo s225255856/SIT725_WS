@@ -1,3 +1,12 @@
+//connect to the server socket
+const socket = io();
+
+//listen to "number" event
+socket.on('number', (msg) => {
+    console.log('Random number: ', msg);
+    document.getElementById('number').innerText = msg;
+});
+
 const getProjects = () => {
     $.get('/api/projects', (response) => {
         if(response.statusCode==200) {
