@@ -13,7 +13,7 @@ app.use("/", routes);
 //Create HTTP server from app
 const http = require('http').createServer(app);
 //Pass http server to socket.io
-const io = require('socket.io') (http);
+const io = require('socket.io')(http);
 
 //Connecting to MongoDB
 mongoose.connect('mongodb://localhost:27017/myprojectDB', {
@@ -48,6 +48,6 @@ io.on('connection', (socket) => {
 });
 
 //stating the server
-app.listen(port, () => {
+http.listen(port, () => {
     console.log("App listening to: "+port);
 });

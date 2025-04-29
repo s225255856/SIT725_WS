@@ -3,7 +3,7 @@ const socket = io();
 
 //listen to "number" event
 socket.on('number', (msg) => {
-    console.log('Random number: ', msg);
+    console.log('There are ', msg, ' chickens');
     document.getElementById('number').innerText = msg;
 });
 
